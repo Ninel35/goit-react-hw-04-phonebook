@@ -1,0 +1,9 @@
+.deluser {
+  background-color: white;
+  color: black;
+}
+.deluser:hover {
+  background-color: chocolate;
+  color: white;
+  cursor: pointer;
+}
