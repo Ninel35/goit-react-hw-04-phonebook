@@ -1,47 +1,40 @@
 import { nanoid } from 'nanoid';
 import css from './FormUser.module.css';
-import { Component } from "react";
+import React, { useState } from 'react'
 
-class FormUser extends Component {
-    state = {
-        name: '',
-        number: ''
+const FormUser = ({sendUserData}) => {
+    const [name, setName] = useState('')
+    const [number, setNumber] = useState('')
+   
+    const handleChange = ({ target: { name, value } }) => {
+        if (name === 'name') setName(value)
+        else setNumber(value)
     }
     
-    handleChange = ({target: {name, value}}) => {
-        this.setState(() => {
-            return {
-                [name]: value
-            }
-        })
-    }
-    
-    handlerSubmit = (evt) => {
+    const handlerSubmit = (evt) => {
         evt.preventDefault();
         const newContact = {
             id: nanoid(),
-            name: this.state.name,
-            number: this.state.number
-        }
-        this.props.sendUserData(newContact);
+            name: name,
+            number: number
+         }
+        sendUserData(newContact);
 
         evt.target.elements.name.value = "";
         evt.target.elements.number.value = "";
     }
 
-    render() {
-        return  (
+    return (
         <>
-            <form onSubmit={this.handlerSubmit} className={css.formuser}>
+            <form onSubmit={handlerSubmit} className={css.formuser}>
                 <label htmlFor="name">Name</label>
-                <input onChange={this.handleChange} type="text" name="name" required />
-                  <label htmlFor="number">Number</label>
-                <input onChange={this.handleChange} type="tel" name="number" required />
+                <input onChange={handleChange} type="text" name="name" required />
+                <label htmlFor="number">Number</label>
+                <input onChange={handleChange} type="tel" name="number" required />
                 <button type="submit">Add contact</button>
             </form>
-           </>);
-        
-    }
-    
+        </>
+    )
 }
-export default FormUser;
+
+export default FormUser
