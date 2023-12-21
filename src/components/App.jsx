@@ -12,6 +12,7 @@ export const App = () => {
     localStorage.setItem('contacts', JSON.stringify(contacts))
   }, [contacts])
 
+  
   const sendUserData = (data) => {
     setContacts((prev) => {
       if (prev.find(({ name }) => name.toLowerCase() === data.name.toLowerCase())) {
